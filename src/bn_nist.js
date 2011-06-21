@@ -32,6 +32,10 @@ function bn_192_cmp(a, b) {
 function bn_192_add(a, b) {
 	var r = a.slice(0);
 	var c = 0, t;
+    // TODO  Closure compiler identified these lines as "suspicious" code for
+    // the t >>> 16 lacking side-effects
+    // perhaps we meant t >>>= 16 ?
+    // - Drew
 	t =  a[ 0] + b[ 0]; r[ 0] = t & 65535; t >>> 16;
 	t += a[ 1] + b[ 1]; r[ 1] = t & 65535; t >>> 16;
 	t += a[ 2] + b[ 2]; r[ 2] = t & 65535; t >>> 16;
@@ -49,6 +53,7 @@ function bn_192_add(a, b) {
 }
 
 function bn_192_add_(a, b) {
+    // TODO See comment immediately above this one
 	var r = a.slice(0);
 	var c = 0, t;
 	t =  a[ 0] + b[ 0]; r[ 0] = t & 0xffffff; t >>> 24;
